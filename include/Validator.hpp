@@ -5,10 +5,14 @@
 
 class Validator
 {
+private:
+    static const int kPasswordMinLength = 8;
+    static const int kLoginMinLength = 5;
+
 public:
     static bool ValidatePassword(std::string &password)
     {
-        return password.size() >= 8;
+        return password.size() >= kPasswordMinLength;
     }
     static bool ValidateLogin(std::string &login)
     {
@@ -19,6 +23,6 @@ public:
                 return false;
             }
         }
-        return login.size() >= 5;
+        return login.size() >= kLoginMinLength;
     }
 };
