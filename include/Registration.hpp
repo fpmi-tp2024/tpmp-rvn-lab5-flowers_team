@@ -2,9 +2,11 @@
 
 #include "AccessCommand.hpp"
 
-class Registration: public AccessCommand{
-    public:
+class Registration : public AccessCommand
+{
+public:
     Registration();
-    User execute(SQLite::Database& db) override;
+    bool AddUser(SQLite::Database &db, User &user);
+    User execute(SQLite::Database &db) override;
     ~Registration() = default;
 };
