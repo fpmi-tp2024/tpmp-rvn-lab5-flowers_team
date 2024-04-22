@@ -17,13 +17,16 @@ bool Registration::AddUser(SQLite::Database &db, User &user)
         while (query.executeStep())
         {
             user.SetUserId(query.getColumn(0).getInt());
+            is_user_add = true;
         }
-        is_user_add = true;
     }
-    catch (std::exception &e)
+    catch (const std::exception &e)
     {
-        std::cout << "Error: a user with this login exists. Please enter your credentials again!" << std::endl;
+        std::cout << e.what() << std::endl;
     }
+    if (!is_user_add)
+        std::cout << "Error: a user with this login exists. Please enter your credentials again!" << std::endl;
+
     return is_user_add;
 }
 
