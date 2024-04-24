@@ -11,9 +11,14 @@ TEST(ValidationTest, InvalidPassword)
     ASSERT_FALSE(Validator::ValidatePassword("123"));
     ASSERT_FALSE(Validator::ValidatePassword("@dow3"));
 }
-TEST(ValidationTest, ValidationLogin)
+TEST(ValidationTest, ValidLogin)
 {
     ASSERT_TRUE(Validator::ValidateLogin("hello23"));
+}
+TEST(ValidationTest, InvalidLogin)
+{
+    ASSERT_FALSE(Validator::ValidateLogin("4567"));
+    ASSERT_FALSE(Validator::ValidateLogin("HU@hhk"));
 }
 
 int main(int argc, char **argv)
