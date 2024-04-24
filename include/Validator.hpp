@@ -10,11 +10,11 @@ private:
     static const int kLoginMinLength = 5;
 
 public:
-    static bool ValidatePassword(std::string &password)
+    static bool ValidatePassword(const std::string &password)
     {
         return password.size() >= kPasswordMinLength;
     }
-    static bool ValidateLogin(std::string &login)
+    static bool ValidateLogin(const std::string &login)
     {
         for (const auto &ch : login)
         {
