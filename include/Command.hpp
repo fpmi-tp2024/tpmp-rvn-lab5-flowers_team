@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <optional>
 #include <SQLiteCpp/SQLiteCpp.h>
 #include "../include/User.hpp"
 class Command
@@ -13,7 +14,6 @@ public:
 
     std::string GetDescription() const { return description; }
 
-    virtual void execute(SQLite::Database &db, std::optional<User>user_info = std::nullopt ) = 0;
+    virtual void execute(SQLite::Database &db, std::optional<User> user_info = std::nullopt) = 0;
     virtual ~Command() = default;
-
 };
