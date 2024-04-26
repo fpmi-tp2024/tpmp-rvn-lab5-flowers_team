@@ -13,6 +13,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: install dependencies
+      run: |
+        sudo apt-get install build-essential libssl-dev
+        sudo apt-get install cmake
     - name: build library
       run: |
         git clone https://github.com/SRombauts/SQLiteCpp.git
