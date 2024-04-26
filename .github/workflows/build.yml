@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: install dependencies
       run: |
-        sudo apt-get install build-essential libssl-dev
+        sudo apt-get install build-essential libssl-dev libgtest-dev
         sudo apt-get install cmake
     - name: build library
       run: |
