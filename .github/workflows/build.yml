@@ -24,6 +24,10 @@ jobs:
         cd SQLiteCpp/build
         cmake ..
         make
+    - name: create db
+      run: |
+          sqlite3 db/flower.db < db/flower.sql
+          sqlite3 tests/test.db < db/flower.sql
     - name: build app
       run: |
          cmake CMakeLists.txt
