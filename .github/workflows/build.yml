@@ -35,6 +35,7 @@ jobs:
     - name: tests
       working-directory: ./tests
       run: |
+          cp -r ../SQLiteCpp/ .
           cmake CMakeLists.txt
           make
           ./tests
