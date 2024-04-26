@@ -3,7 +3,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 find_package(GTest REQUIRED)
 
-include_directories(${CMAKE_CURRENT_LIST_DIR}/../SQLiteCpp)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/SQLiteCpp)
 include_directories(${CMAKE_CURRENT_LIST_DIR}/../include)
 file(GLOB SOURCES "../src/*.cpp")
 list(REMOVE_ITEM SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/../src/main.cpp)
