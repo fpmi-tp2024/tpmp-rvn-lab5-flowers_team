@@ -32,3 +32,9 @@ jobs:
       run: |
          cmake CMakeLists.txt
          make
+    - name: tests
+      working-directory: ./tests
+      run: |
+          cmake CMakeLists.txt
+          make
+          ./tests
