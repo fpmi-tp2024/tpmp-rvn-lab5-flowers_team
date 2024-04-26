@@ -20,10 +20,7 @@ jobs:
     - name: build library
       run: |
         git clone https://github.com/SRombauts/SQLiteCpp.git
-        mkdir -p build
-        cd build
+        mkdir -p SQLiteCpp/build
+        cd SQLiteCpp/build
         cmake ..
         make
-      
-    
-   
