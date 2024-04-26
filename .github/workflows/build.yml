@@ -26,6 +26,5 @@ jobs:
         make
     - name: build app
       run: |
-        cd ../..
-        cmake CMakeLists.txt
-        make
+         ls
+         pwd
