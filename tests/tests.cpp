@@ -23,7 +23,7 @@ TEST(ValidationTest, InvalidLogin)
 }
 TEST(RegistrationTest, AddUser)
 {
-    SQLite::Database db("../db/flower.db", SQLite::OPEN_READWRITE);
+    SQLite::Database db("test.db", SQLite::OPEN_READWRITE);
     std::hash<std::string> hasher;
     std::string hash_password = std::to_string(hasher("wqr8t321"));
     std::string login = "valya234";
@@ -33,7 +33,7 @@ TEST(RegistrationTest, AddUser)
 }
 TEST(RegistrationTest, AddExistingUser)
 {
-    SQLite::Database db("../db/flower.db", SQLite::OPEN_READWRITE);
+    SQLite::Database db("test.db", SQLite::OPEN_READWRITE);
     std::hash<std::string> hasher;
     std::string hash_password = std::to_string(hasher("12345678"));
     std::string login = "hello23";
