@@ -24,3 +24,8 @@ jobs:
         cd SQLiteCpp/build
         cmake ..
         make
+    - name: build app
+      run: |
+        cd ../..
+        cmake CMakeLists.txt
+        make
