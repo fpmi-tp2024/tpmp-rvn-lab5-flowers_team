@@ -1,0 +1,7 @@
+#!/bin/bash
+rm -rf tests_coverage_report
+g++ --coverage -o tests_cov -std=c++17 tests.cpp $(find ../src -name '*.cpp' ! -name 'main.cpp') ../SQLiteCpp/build/libSQLiteCpp.a -ldl -lsqlite3 -lpthread -lgtest -lgtest_main -lm
+./tests_cov
+lcov -t "program_cov" -o ./tests_coverage.info -c -d .
+genhtml -o tests_coverage_report tests_coverage.info
+rm -f tests_cov *.gcno *.gcda tests_coverage.info
