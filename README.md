@@ -41,13 +41,71 @@
 5. Функция, которая на указанную дату выводит всю информацию о полученных заказах.
 
 ## Установка:
-- Скачать с гитхаба проект
-- Запустить через командную строку Makefile
-- Запустить итоговый исполняемый файл
+- Сборка проекта:
+  - Склонировать данный репозиторий
+    ```Shell
+    git clone https://github.com/fpmi-tp2024/tpmp-rvn-lab5-flowers_team.git
+    ```
+  - Склонировать и собрать библиотеку SQLiteCpp
+    ```Shell
+    git clone https://github.com/SRombauts/SQLiteCpp.git
+    mkdir -p SQLiteCpp/build
+    cd SQLiteCpp/build
+    cmake ..
+    make
+    ```
+  - Создать бд для приложения и тестов
+    ```Shell
+    ./db_migrations
+    ```
+  - Собрать приложение
+    ```Shell
+    cmake CMakeLists.txt
+    make
+    ```
+- Сборка тестов:
+  - Перейти в директорию tests
+    ```Shell
+    cd tests
+    ```
+  - Если тестовая бд не создана, то создать ее
+    ```Shell
+    ./db_migrations
+    ```
+  - Скопировать библиотеку SQLiteCpp в текущую директорию
+    ```Shell
+    cp -r ../SQLiteCpp/ .
+    ```
+  - Собрать тесты
+    ```Shell
+    cmake CMakeLists.txt
+    make
+    ```
 
 ## Использование приложения после установки:
-Запустите приложение в консоли. Далее следуйте указаниям.
-
+  - Запуск приложения
+  ```Shell
+    ./bin/main
+  ```
+  - Запуск тестов
+  ```Shell
+    ./tests/tests
+  ```
+  - Анализ покрытия кода тестами
+    - Создание отчета
+    ```Shell
+    ./tests/tests_coverage_script 
+    ```
+    - Отчет можно просмотреть, открыв файл ./tests/tests_coverage_report/index.html
+  - Проверка утечек памяти
+    - Собрать приложение
+      ```Shell
+      g++ -O0 -g ./src/*.cpp ./SQLiteCpp/build/libSQLiteCpp.a -ldl -lsqlite3 -lpthread -o app
+      ```
+    - Проверить утечку памяти с помощью valgrind
+      ```Shell
+      valgrind --leak-check=full ./app 
+      ``` 
 ## Сведения об авторах проекта и какие задачи реализовывали:
 1. Андреева София:
 - Создание UML диаграмм
