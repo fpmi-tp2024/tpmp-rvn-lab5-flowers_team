@@ -48,7 +48,7 @@ void NewOrderCostCalculator::execute(SQLite::Database &db, std::optional<User> u
     Composition composition{};
     Order order{};
     CompositionSelector composition_selector{};
-
+    order.SetUserId((*user_info).GetUserId());
     while (true)
     {
         while (true)
