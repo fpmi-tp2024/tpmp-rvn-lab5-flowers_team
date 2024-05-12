@@ -1,6 +1,14 @@
-#include "../include/Order.hpp"
 #include <iostream>
+#include "../include/Order.hpp"
 #include "../include/Composition.hpp"
+
+Order::Order() = default;
+Order::Order(int _id_order, int _composition_id, int _user_id,
+             std::string _order_date, std::string _release_date,
+             int _composition_count, double _cost) : id_order(_id_order),
+                                                     composition_id(_composition_id), user_id(_user_id),
+                                                     order_date(_order_date), release_date(_release_date),
+                                                     composition_count(_composition_count), cost(_cost) {}
 void Order::SetIdOrder(int _id_order)
 {
     id_order = _id_order;
@@ -57,15 +65,16 @@ int Order::GetCost() const
 {
     return cost;
 }
-void Order::AddOrder(int _id_order,int _composition_id, int _user_id, std::string _order_date,std::string _release_date, int _composition_count, double _cost)
+void Order::AddOrder(int _id_order, int _composition_id, int _user_id, std::string _order_date, std::string _release_date,
+                     int _composition_count, double _cost)
 {
-    order.emplace_back(Order(_id_order, _composition_id,  _user_id, _order_date,_release_date, _composition_count, _cost));
+    orders_info.emplace_back(Order(_id_order, _composition_id, _user_id, _order_date, _release_date, _composition_count, _cost));
 }
 std::string Order::toString()
 {
     std::string result;
 
-    for (const auto& ord : order)
+    for (const auto &ord : orders_info)
     {
         result += "Order ID: " + std::to_string(ord.GetIdOrder()) + "\n";
         result += "Composition ID: " + std::to_string(ord.GetCompositionId()) + "\n";
@@ -78,3 +87,5 @@ std::string Order::toString()
 
     return result;
 }
+
+Order::~Order() = default;
