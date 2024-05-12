@@ -1,10 +1,10 @@
 #pragma once
 #include "../include/Command.hpp"
 
-class CompositionProfitAnalyzer: public Command
+class CompositionProfitAnalyzer : public Command
 {
-    public:
+public:
     CompositionProfitAnalyzer();
-    void execute(SQLite::Database &db , std::optional<User>user_info = std::nullopt) override;
-    ~CompositionProfitAnalyzer() = default;
+    void execute(SQLite::Database &db, std::optional<User> user_info = std::nullopt) override;
+    ~CompositionProfitAnalyzer();
 };

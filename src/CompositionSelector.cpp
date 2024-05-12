@@ -1,7 +1,8 @@
+#include <iostream>
 #include "../include/CompositionSelector.hpp"
 
-#include <iostream>
 CompositionSelector::CompositionSelector() : Command("Get info about composition\n") {}
+
 bool CompositionSelector::GetComposition(Composition &composition, SQLite::Database &db)
 {
     SQLite::Statement query(db, "SELECT id, composition_name, composition_cost FROM Composition WHERE composition_name = ?;");
@@ -27,10 +28,13 @@ bool CompositionSelector::GetComposition(Composition &composition, SQLite::Datab
     }
     return is_composition_find;
 }
+
 bool CompositionSelector::GetFlowerComposition(Composition &composition, SQLite::Database &db)
 {
     Flower flower{};
-    SQLite::Statement query(db, "SELECT Flower.id, Flower.flower_name, Flower.variety, Flower.flower_cost, Composition_flower.flower_count FROM Composition_flower INNER JOIN Flower ON Composition_flower.id_flower = Flower.id WHERE Composition_flower.composition_id = ?;");
+    SQLite::Statement query(db, "SELECT Flower.id, Flower.flower_name, Flower.variety, Flower.flower_cost, Composition_flower.flower_count \
+    FROM Composition_flower INNER JOIN Flower ON Composition_flower.id_flower = Flower.id \
+    WHERE Composition_flower.composition_id = ?;");
     query.bind(1, composition.GetIdComposition());
     bool is_flower_composition_find = false;
     try
@@ -41,7 +45,8 @@ bool CompositionSelector::GetFlowerComposition(Composition &composition, SQLite:
             flower.SetFlowerName(query.getColumn(1).getString());
             flower.SetVariety(query.getColumn(2).getString());
             flower.SetFlowerCost(query.getColumn(3).getInt());
-            composition.AddFlower(flower.GetIdFlower(), flower.GetFlowerName(), flower.GetVariety(), flower.GetFlowerCost(), query.getColumn(4).getInt());
+            composition.AddFlower(flower.GetIdFlower(), flower.GetFlowerName(), flower.GetVariety(),
+                                  flower.GetFlowerCost(), query.getColumn(4).getInt());
             is_flower_composition_find = true;
         }
     }
@@ -55,6 +60,7 @@ bool CompositionSelector::GetFlowerComposition(Composition &composition, SQLite:
     }
     return is_flower_composition_find;
 }
+
 void CompositionSelector::execute(SQLite::Database &db, std::optional<User> user_info)
 {
     std::string composition_name;
@@ -70,3 +76,5 @@ void CompositionSelector::execute(SQLite::Database &db, std::optional<User> user
         std::cout << composition.toString() << std::endl;
     }
 }
+
+CompositionSelector::~CompositionSelector() = default;
