@@ -1,15 +1,13 @@
 #pragma once
 
 #include <string>
-#include <vector>
+#include <iostream>
 class Order
 {
 public:
     Order();
     Order(int _id_order, int _composition_id, int _user_id,
-          std::string _order_date, std::string _release_date, int _composition_count, double _cost);
-    void AddOrder(int _id_order, int _composition_id, int _user_id, std::string _order_date,
-                  std::string _release_date, int _composition_count, double _cost);
+          std::string _order_date, std::string _release_date, int _composition_count, int _cost);
     void SetIdOrder(int _id_order);
     void SetCompositionId(int _composition_id);
     void SetUserId(int _user_id);
@@ -24,8 +22,9 @@ public:
     std::string GetReleaseDate() const;
     int GetCompositionCount() const;
     int GetCost() const;
-    std::string toString();
     ~Order();
+
+    friend std::ostream &operator<<(std::ostream &out, const Order &order);
 
 private:
     int id_order;
@@ -35,5 +34,4 @@ private:
     int cost;
     std::string order_date;
     std::string release_date;
-    std::vector<Order> orders_info;
 };

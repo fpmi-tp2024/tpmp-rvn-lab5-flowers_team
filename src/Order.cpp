@@ -1,14 +1,13 @@
-#include <iostream>
 #include "../include/Order.hpp"
 #include "../include/Composition.hpp"
 
 Order::Order() = default;
 Order::Order(int _id_order, int _composition_id, int _user_id,
              std::string _order_date, std::string _release_date,
-             int _composition_count, double _cost) : id_order(_id_order),
-                                                     composition_id(_composition_id), user_id(_user_id),
-                                                     order_date(_order_date), release_date(_release_date),
-                                                     composition_count(_composition_count), cost(_cost) {}
+             int _composition_count, int _cost) : id_order(_id_order),
+                                                  composition_id(_composition_id), user_id(_user_id),
+                                                  order_date(_order_date), release_date(_release_date),
+                                                  composition_count(_composition_count), cost(_cost) {}
 void Order::SetIdOrder(int _id_order)
 {
     id_order = _id_order;
@@ -65,27 +64,17 @@ int Order::GetCost() const
 {
     return cost;
 }
-void Order::AddOrder(int _id_order, int _composition_id, int _user_id, std::string _order_date, std::string _release_date,
-                     int _composition_count, double _cost)
-{
-    orders_info.emplace_back(Order(_id_order, _composition_id, _user_id, _order_date, _release_date, _composition_count, _cost));
-}
-std::string Order::toString()
-{
-    std::string result;
-
-    for (const auto &ord : orders_info)
-    {
-        result += "Order ID: " + std::to_string(ord.GetIdOrder()) + "\n";
-        result += "Composition ID: " + std::to_string(ord.GetCompositionId()) + "\n";
-        result += "User ID: " + std::to_string(ord.GetUserId()) + "\n";
-        result += "Order date: " + ord.GetOrderDate() + "\n";
-        result += "Release date: " + ord.GetReleaseDate() + "\n";
-        result += "Composition count: " + std::to_string(ord.GetCompositionCount()) + "\n";
-        result += "Order total cost: " + std::to_string(ord.GetCost()) + "\n\n";
-    }
-
-    return result;
-}
 
 Order::~Order() = default;
+
+std::ostream &operator<<(std::ostream &out, const Order &order)
+{
+    out << "Order ID: " << order.id_order << '\n';
+    out << "Composition ID: " << order.composition_id << '\n';
+    out << "User ID: " << order.user_id << '\n';
+    out << "Order date: " << order.order_date << '\n';
+    out << "Release date: " << order.release_date << '\n';
+    out << "Composition count: " << order.composition_count << '\n';
+    out << "Order total cost: " << order.cost << "\n\n";
+    return out;
+}

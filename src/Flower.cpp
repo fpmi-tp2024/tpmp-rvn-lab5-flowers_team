@@ -38,3 +38,12 @@ int Flower::GetFlowerCost() const
     return flower_cost;
 }
 Flower::~Flower() = default;
+
+std::ostream &operator<<(std::ostream &out, const Flower &flower)
+{
+    out << "Flower id = " << flower.id_flower << '\n';
+    out << "Flower name: " << flower.flower_name << '\n';
+    out << "Flower variety: " << flower.variety << '\n';
+    out << "Flower cost: " << flower.flower_cost << '\n';
+    return out;
+}

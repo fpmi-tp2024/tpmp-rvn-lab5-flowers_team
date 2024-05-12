@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 class Flower
 {
 public:
@@ -15,6 +16,8 @@ public:
     std::string GetVariety() const;
     int GetFlowerCost() const;
     ~Flower();
+
+    friend std::ostream &operator<<(std::ostream &out, const Flower &flower);
 
 private:
     int id_flower;

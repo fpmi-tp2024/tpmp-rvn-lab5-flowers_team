@@ -16,8 +16,9 @@ public:
     int GetIdComposition() const;
     std::string GetCompositionName() const;
     int GetCompositionCost() const;
-    std::string toString();
     ~Composition();
+
+    friend std::ostream &operator<<(std::ostream &out, const Composition &composition);
 
 private:
     int id_composition;
