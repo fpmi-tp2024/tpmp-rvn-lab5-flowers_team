@@ -1,5 +1,10 @@
-#include "../include/Composition.hpp"
 #include <iostream>
+#include "../include/Composition.hpp"
+
+Composition::Composition() = default;
+Composition::Composition(int _id_composition, std::string _composition_name, int _composition_cost) : id_composition(_id_composition),
+                                                                                                      composition_name(_composition_name),
+                                                                                                      composition_cost(_composition_cost) {}
 void Composition::SetIdComposition(int _id_composition)
 {
     id_composition = _id_composition;
