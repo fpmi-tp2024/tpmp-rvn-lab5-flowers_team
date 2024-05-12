@@ -5,17 +5,18 @@
 
 #include "../include/Authorization.hpp"
 #include "../include/Registration.hpp"
-class CommandManager {
-
-    private:
-    std::map<int,std::shared_ptr<AccessCommand>>access_command_table;
-    SQLite::Database db;
+class CommandManager
+{
+private:
     void InitAccessCommands();
     void PrintAccessCommands();
-    
-    
-    public:
+
+public:
     CommandManager(std::string db_path);
-    ~CommandManager()=default;
+    ~CommandManager();
     void Start();
+
+private:
+    std::map<int, std::shared_ptr<AccessCommand>> access_command_table;
+    SQLite::Database db;
 };

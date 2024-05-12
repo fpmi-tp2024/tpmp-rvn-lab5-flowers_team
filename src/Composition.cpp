@@ -1,5 +1,10 @@
-#include "../include/Composition.hpp"
 #include <iostream>
+#include "../include/Composition.hpp"
+
+Composition::Composition() = default;
+Composition::Composition(int _id_composition, std::string _composition_name, int _composition_cost) : id_composition(_id_composition),
+                                                                                                      composition_name(_composition_name),
+                                                                                                      composition_cost(_composition_cost) {}
 void Composition::SetIdComposition(int _id_composition)
 {
     id_composition = _id_composition;
@@ -30,27 +35,29 @@ void Composition::AddFlower(int _id_flower, std::string _flower_name, std::strin
     flowers.emplace_back(Flower(_id_flower, _flower_name, _variety, _flower_cost), flower_count);
 }
 
-std::string Composition::toString()
-{
-    std::cout << "Composition information" << std::endl;
-    std::cout << "Composition id = " << GetIdComposition() << std::endl;
-    std::cout << "Composition name: " << GetCompositionName() << std::endl;
-    std::cout << "Composition cost: " << GetCompositionCost() << std::endl;
-    std::cout << std::endl;
-    std::cout << "All information about the flowers included in the composition" << std::endl;
-    std::string result;
-    for (const auto &pair : flowers)
-    {
-        result += "Flower id = " + std::to_string(pair.first.GetIdFlower()) + "\n";
-        result += "Flower name: " + pair.first.GetFlowerName() + "\n";
-        result += "Flower variety: " + pair.first.GetVariety() + "\n";
-        result += "Flower cost: " + std::to_string(pair.first.GetFlowerCost()) + "\n";
-        result += "Flower count: " + std::to_string(pair.second) + "\n";
-        result += "\n";
-    }
-    return result;
-}
 Composition::~Composition()
 {
     flowers.clear();
+}
+
+std::ostream &operator<<(std::ostream &out, const Composition &composition)
+{
+    out << "Composition information:\n";
+    out << "Composition id = " << composition.id_composition << '\n';
+    out << "Composition name: " << composition.composition_name << '\n';
+    out << "Composition cost: " << composition.composition_cost << "\n\n";
+    if (composition.flowers.empty())
+    {
+        out << "No flowers in this composition!\n\n";
+    }
+    else
+    {
+        out << "All information about the flowers included in the composition:\n\n";
+        for (const auto &flower_info : composition.flowers)
+        {
+            out << flower_info.first;
+            out << "Flower count: " << flower_info.second << "\n\n";
+        }
+    }
+    return out;
 }

@@ -9,16 +9,9 @@ enum class User_Role
 
 class User
 {
-
-private:
-    int user_id;
-    std::string login;
-    std::string hash_password;
-    User_Role role;
-
 public:
     User() = default;
-    User(std::string _login, std::string _hash_password, User_Role _role = User_Role::Simple_User) : login(_login), hash_password(_hash_password), role(_role) {}
+    User(std::string _login, std::string _hash_password, User_Role _role = User_Role::Simple_User);
     void SetUserId(int id);
     void SetUserLogin(std::string _login);
     void SetUserHashPassword(std::string _hash_password);
@@ -27,5 +20,11 @@ public:
     std::string GetLogin() const;
     std::string GetHashPassword() const;
     User_Role GetUserRole() const;
-    ~User() = default;
+    ~User();
+
+private:
+    int user_id;
+    std::string login;
+    std::string hash_password;
+    User_Role role;
 };

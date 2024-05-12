@@ -1,6 +1,6 @@
+#include <iostream>
 #include "../include/CommandManager.hpp"
 
-#include <iostream>
 CommandManager::CommandManager(std::string db_path) : db(db_path, SQLite::OPEN_READWRITE)
 {
     InitAccessCommands();
@@ -49,3 +49,5 @@ void CommandManager::PrintAccessCommands()
         std::cout << command.first << ". " << command.second->GetDescription() << std::endl;
     }
 }
+
+CommandManager::~CommandManager() = default;

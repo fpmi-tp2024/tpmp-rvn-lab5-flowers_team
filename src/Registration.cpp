@@ -76,3 +76,5 @@ User Registration::execute(SQLite::Database &db)
 
     return user;
 }
+
+Registration::~Registration() = default;

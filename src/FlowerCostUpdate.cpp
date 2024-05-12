@@ -1,10 +1,11 @@
-#include "../include/FlowerCostUpdate.hpp"
 #include <string>
 #include <iostream>
 #include <SQLiteCpp/Transaction.h>
 #include "../include/Composition.hpp"
+#include "../include/FlowerCostUpdate.hpp"
 
 FlowerCostUpdate::FlowerCostUpdate() : Command("Update flower cost") {}
+
 bool FlowerCostUpdate::FindFlower(SQLite::Database &db, Flower &flower)
 {
     SQLite::Statement query_flower(db, "SELECT id, flower_name, variety, flower_cost FROM Flower WHERE flower_name = ?;");
@@ -26,6 +27,7 @@ bool FlowerCostUpdate::FindFlower(SQLite::Database &db, Flower &flower)
     }
     return is_flower_find;
 }
+
 void FlowerCostUpdate::CompositionCostUpdate(SQLite::Database &db, Flower &flower, int &new_cost)
 {
     int diff_sum = new_cost - flower.GetFlowerCost();
@@ -46,15 +48,16 @@ void FlowerCostUpdate::CompositionCostUpdate(SQLite::Database &db, Flower &flowe
         query_composition_cost.bind(2, diff_sum);
         query_composition_cost.exec();
         transaction.commit();
-        std::cout<<"Cost for flower successfully updated!"<<std::endl;
+        std::cout << "Cost for flower successfully updated!" << std::endl;
     }
     catch (const std::exception &e)
     {
         std::cout << e.what() << std::endl;
         transaction.rollback();
-        std::cout<<"Error with update flower cost"<<std::endl;
+        std::cout << "Error with update flower cost" << std::endl;
     }
 }
+
 void FlowerCostUpdate::execute(SQLite::Database &db, std::optional<User> user_info)
 {
 
@@ -74,5 +77,7 @@ void FlowerCostUpdate::execute(SQLite::Database &db, std::optional<User> user_in
         }
         std::cout << "No such flower. Please, try again!" << std::endl;
     }
-    CompositionCostUpdate(db,flower,new_cost);
+    CompositionCostUpdate(db, flower, new_cost);
 }
+
+FlowerCostUpdate::~FlowerCostUpdate() = default;

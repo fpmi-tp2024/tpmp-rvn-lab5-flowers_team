@@ -8,5 +8,5 @@ public:
     Registration();
     bool AddUser(SQLite::Database &db, User &user);
     User execute(SQLite::Database &db) override;
-    ~Registration() = default;
+    ~Registration();
 };

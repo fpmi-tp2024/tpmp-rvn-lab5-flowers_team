@@ -1,16 +1,18 @@
+#include <string>
+#include <iostream>
+#include <SQLiteCpp/Transaction.h>
 #include "../include/NewOrderCostCalculator.hpp"
 #include "../include/Composition.hpp"
 #include "../include/User.hpp"
 #include "../include/CompositionSelector.hpp"
-#include <string>
-#include <iostream>
-#include <SQLiteCpp/Transaction.h>
 
 NewOrderCostCalculator::NewOrderCostCalculator() : Command("New order cost calculator") {}
+
 bool NewOrderCostCalculator::RegistrationNewOrder(SQLite::Database &db, Order &order, const int &composition_cost)
 {
     SQLite::Transaction transaction(db);
-    SQLite::Statement query(db, "INSERT INTO \"Order\" (composition_count,order_date,release_date,user_id,composition_id) VALUES(?, ?, ?, ?, ?) RETURNING id, composition_count, order_date, release_date, user_id, composition_id;");
+    SQLite::Statement query(db, "INSERT INTO \"Order\" (composition_count,order_date,release_date,user_id,composition_id) VALUES(?, ?, ?, ?, ?) \
+    RETURNING id, composition_count, order_date, release_date, user_id, composition_id;");
     query.bind(1, order.GetCompositionCount());
     query.bind(2, order.GetOrderDate());
     query.bind(3, order.GetReleaseDate());
@@ -29,7 +31,6 @@ bool NewOrderCostCalculator::RegistrationNewOrder(SQLite::Database &db, Order &o
         query1.bind(2, order.GetCost());
         while (query1.executeStep())
         {
-            order.AddOrder(order.GetIdOrder(), order.GetCompositionId(), order.GetUserId(), order.GetOrderDate(), order.GetReleaseDate(), order.GetCompositionCount(), order.GetCost());
             is_order_add = true;
         }
         transaction.commit();
@@ -60,7 +61,7 @@ void NewOrderCostCalculator::execute(SQLite::Database &db, std::optional<User> u
             {
                 break;
             }
-            std::cout << "No such composition. Please, try again!" << std::endl;
+            std::cout << "Please, try again!" << std::endl;
         }
         order.SetCompositionId(composition.GetIdComposition());
         std::cout << "Enter composition count: " << std::endl;
@@ -76,14 +77,17 @@ void NewOrderCostCalculator::execute(SQLite::Database &db, std::optional<User> u
         std::cin.get();
         std::getline(std::cin, release_date);
         order.SetReleaseDate(release_date);
+        std::cout << std::endl;
 
         if (RegistrationNewOrder(db, order, composition.GetCompositionCost()))
         {
-            std::cout << "Information about order " << std::endl;
+            std::cout << "Information about order: " << std::endl;
             std::cout << "Composition name: " << composition.GetCompositionName() << std::endl;
-            std::cout << order.toString() << std::endl;
+            std::cout << order << std::endl;
             break;
         }
         std::cout << "Incorrect data. Please, try again" << std::endl;
     }
 }
+
+NewOrderCostCalculator::~NewOrderCostCalculator() = default;
