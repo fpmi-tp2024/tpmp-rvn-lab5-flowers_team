@@ -55,3 +55,5 @@ User Authorization::execute(SQLite::Database &db)
 
     return user;
 }
+
+Authorization::~Authorization() = default;
