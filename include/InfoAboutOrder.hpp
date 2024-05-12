@@ -4,8 +4,8 @@
 
 class InfoAboutOrder : public Command
 {
-    public:
+public:
     InfoAboutOrder();
     void execute(SQLite::Database &db, std::optional<User> user_info = std::nullopt) override;
-    ~InfoAboutOrder() = default;
+    ~InfoAboutOrder();
 };

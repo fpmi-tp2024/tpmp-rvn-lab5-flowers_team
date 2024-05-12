@@ -1,16 +1,18 @@
+#include <string>
+#include <iostream>
+#include <SQLiteCpp/Transaction.h>
 #include "../include/NewOrderCostCalculator.hpp"
 #include "../include/Composition.hpp"
 #include "../include/User.hpp"
 #include "../include/CompositionSelector.hpp"
-#include <string>
-#include <iostream>
-#include <SQLiteCpp/Transaction.h>
 
 NewOrderCostCalculator::NewOrderCostCalculator() : Command("New order cost calculator") {}
+
 bool NewOrderCostCalculator::RegistrationNewOrder(SQLite::Database &db, Order &order, const int &composition_cost)
 {
     SQLite::Transaction transaction(db);
-    SQLite::Statement query(db, "INSERT INTO \"Order\" (composition_count,order_date,release_date,user_id,composition_id) VALUES(?, ?, ?, ?, ?) RETURNING id, composition_count, order_date, release_date, user_id, composition_id;");
+    SQLite::Statement query(db, "INSERT INTO \"Order\" (composition_count,order_date,release_date,user_id,composition_id) VALUES(?, ?, ?, ?, ?) \
+    RETURNING id, composition_count, order_date, release_date, user_id, composition_id;");
     query.bind(1, order.GetCompositionCount());
     query.bind(2, order.GetOrderDate());
     query.bind(3, order.GetReleaseDate());
@@ -87,3 +89,5 @@ void NewOrderCostCalculator::execute(SQLite::Database &db, std::optional<User> u
         std::cout << "Incorrect data. Please, try again" << std::endl;
     }
 }
+
+NewOrderCostCalculator::~NewOrderCostCalculator() = default;

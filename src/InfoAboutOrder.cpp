@@ -1,9 +1,10 @@
-#include "../include/InfoAboutOrder.hpp"
-#include "../include/Order.hpp"
 #include <string>
 #include <iostream>
+#include "../include/InfoAboutOrder.hpp"
+#include "../include/Order.hpp"
 
 InfoAboutOrder::InfoAboutOrder() : Command("All information about the order") {}
+
 void InfoAboutOrder::execute(SQLite::Database &db, std::optional<User> user_info)
 {
     std::string date;
@@ -11,7 +12,8 @@ void InfoAboutOrder::execute(SQLite::Database &db, std::optional<User> user_info
     std::cout << "Enter the date to receive information on all orders" << std::endl;
     std::getline(std::cin, date);
 
-    SQLite::Statement query(db, "SELECT id, composition_count, order_date, release_date, user_id, composition_id FROM \"Order\" WHERE order_date = ?;");
+    SQLite::Statement query(db, "SELECT id, composition_count, order_date, release_date, user_id, composition_id \
+    FROM \"Order\" WHERE order_date = ?;");
     query.bind(1, date);
     bool is_order_find = false;
     try
@@ -31,7 +33,8 @@ void InfoAboutOrder::execute(SQLite::Database &db, std::optional<User> user_info
             {
                 order.SetCost(query1.getColumn(0).getInt());
             }
-            order.AddOrder(order.GetIdOrder(), order.GetCompositionId(), order.GetUserId(), order.GetOrderDate(), order.GetReleaseDate(), order.GetCompositionCount(), order.GetCost());
+            order.AddOrder(order.GetIdOrder(), order.GetCompositionId(), order.GetUserId(), order.GetOrderDate(),
+                           order.GetReleaseDate(), order.GetCompositionCount(), order.GetCost());
             is_order_find = true;
         }
     }
@@ -49,3 +52,5 @@ void InfoAboutOrder::execute(SQLite::Database &db, std::optional<User> user_info
         std::cout << order.toString() << std::endl;
     }
 }
+
+InfoAboutOrder::~InfoAboutOrder() = default;
