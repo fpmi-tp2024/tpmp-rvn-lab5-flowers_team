@@ -3,23 +3,22 @@
 #include <string>
 class Flower
 {
-    private:
+public:
+    Flower();
+    Flower(int _id_flower, std::string _flower_name, std::string _variety, int _flower_cost);
+    void SetIdFlower(int _id_flower);
+    void SetFlowerName(std::string _flower_name);
+    void SetVariety(std::string _variety);
+    void SetFlowerCost(int _flower_cost);
+    int GetIdFlower() const;
+    std::string GetFlowerName() const;
+    std::string GetVariety() const;
+    int GetFlowerCost() const;
+    ~Flower();
+
+private:
     int id_flower;
     std::string flower_name;
     std::string variety;
     int flower_cost;
-    
-    public:
-    Flower() = default;
-    Flower(int _id_flower, std::string _flower_name, std::string _variety, int _flower_cost) : id_flower(_id_flower), 
-    flower_name(_flower_name), variety(_variety), flower_cost(_flower_cost){}
-    ~Flower() = default;
-    void SetIdFlower(int _id_flower);
-    int GetIdFlower() const;
-    void SetFlowerName(std::string _flower_name);
-    std::string GetFlowerName() const;
-    void SetVariety(std::string _variety);
-    std::string GetVariety() const;
-    void SetFlowerCost(int _flower_cost);
-    int GetFlowerCost() const;
 };
