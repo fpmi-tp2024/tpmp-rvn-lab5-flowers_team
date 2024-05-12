@@ -54,10 +54,6 @@ bool CompositionSelector::GetFlowerComposition(Composition &composition, SQLite:
     {
         std::cout << e.what() << std::endl;
     }
-    if (!is_flower_composition_find)
-    {
-        std::cout << "No information!" << std::endl;
-    }
     return is_flower_composition_find;
 }
 
@@ -73,7 +69,7 @@ void CompositionSelector::execute(SQLite::Database &db, std::optional<User> user
     if (GetComposition(composition, db))
     {
         GetFlowerComposition(composition, db);
-        std::cout << composition.toString() << std::endl;
+        std::cout << composition << std::endl;
     }
 }
 
