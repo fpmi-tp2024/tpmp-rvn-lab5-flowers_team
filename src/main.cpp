@@ -1,5 +1,5 @@
-#include "../include/CommandManager.hpp"
 #include <iostream>
+#include "../include/CommandManager.hpp"
 
 int main()
 {
