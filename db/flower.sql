@@ -122,5 +122,5 @@ INSERT INTO "Composition" VALUES (1,'Security',234);
 INSERT INTO "Composition" VALUES (2,'Бархат',123);
 INSERT INTO "Composition" VALUES (3,'Charm',2000);
 INSERT INTO "Composition" VALUES (4,'Ханой',3433);
-INSERT INTO "Composition" VALUES (5,'Нежность любви',233);
+INSERT INTO "Composition" VALUES (5,'Нежность любви',2133);
 COMMIT;
