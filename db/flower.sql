@@ -1,4 +1,10 @@
 BEGIN TRANSACTION;
+DROP INDEX IF EXISTS "idx_users_login_password";
+DROP INDEX IF EXISTS "idx_order_composition_id";
+DROP INDEX IF EXISTS "idx_flower_name_variety";
+DROP INDEX IF EXISTS "id_composition_flower_flower_id";
+DROP INDEX IF EXISTS "idx_order_order_date";
+DROP INDEX IF EXISTS "idx_order_cost_order";
 DROP TABLE IF EXISTS "Users";
 DROP TABLE IF EXISTS "Composition_flower";
 DROP TABLE IF EXISTS "Order";
@@ -50,10 +56,30 @@ CREATE TABLE IF NOT EXISTS "Flower" (
 );
 CREATE TABLE IF NOT EXISTS "Composition" (
 	"id"	INTEGER,
-	"composition_name"	Text NOT NULL,
+	"composition_name"	Text NOT NULL UNIQUE,
 	"composition_cost"	INTEGER NOT NULL,
 	CONSTRAINT "unique_id" UNIQUE("id"),
 	PRIMARY KEY("id" AUTOINCREMENT)
+);
+CREATE UNIQUE INDEX "idx_users_login_password" ON "Users" (
+	"login",
+	"password"
+);
+CREATE INDEX "idx_order_composition_id" ON "Order" (
+	"composition_id"
+);
+CREATE UNIQUE INDEX "idx_flower_name_variety" ON "Flower" (
+	"flower_name",
+	"variety"
+);
+CREATE INDEX "id_composition_flower_flower_id" ON "Composition_flower" (
+	"id_flower"
+);
+CREATE INDEX "idx_order_order_date" ON "Order" (
+	"order_date"
+);
+CREATE UNIQUE INDEX "idx_order_cost_order" ON "Order_cost" (
+	"order_id"
 );
 INSERT INTO "Users" VALUES (1,'sonyands04','zd5mby','S');
 INSERT INTO "Users" VALUES (2,'valyaksh2003','9Met66','A');
